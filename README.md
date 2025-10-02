@@ -86,8 +86,3 @@ The JSON files provide data to identify:
   "ThreadPriority": 0
 }
 ```
-
-## Author: AI Assistant
-## Version: 1.0
-## Date: October 2025
-
