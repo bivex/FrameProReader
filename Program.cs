@@ -1,4 +1,4 @@
-﻿/*
+/*
  * FramePro Reader - Performance Analyzer for .framepro Files
  * 
  * BRIEF DESCRIPTION:
@@ -729,10 +729,21 @@ namespace FrameProReader
                         {
                             session.Dispose();
                         }
+                        catch (NullReferenceException)
+                        {
+                            // Ignore null reference exceptions during disposal
+                            // This can happen if internal objects are already disposed
+                            // Data has already been saved, so this is not critical
+                        }
                         catch (Exception disposeEx)
                         {
-                            Console.WriteLine($"Error during session disposal: {disposeEx.Message}");
-                            Console.WriteLine(disposeEx.StackTrace);
+                            // Only log non-null-reference exceptions for debugging
+                            // NullReferenceException during disposal is not critical
+                            if (disposeEx is not NullReferenceException)
+                            {
+                                Console.WriteLine($"Error during session disposal: {disposeEx.Message}");
+                                Console.WriteLine(disposeEx.StackTrace);
+                            }
                         }
                     }
                 }
